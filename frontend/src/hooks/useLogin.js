@@ -16,11 +16,14 @@ export const useLogin = () => {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ email, password })
       });
-      const json = await response.json();
 
       if (!response.ok) {
-        throw new Error(json.error || 'Failed to login');  // Throw an error if not OK
+        const text = await response.text(); // Read response as text first
+        const jsonData = text ? JSON.parse(text) : {}; // Safely parse JSON only if text is not empty
+        throw new Error(jsonData.error || 'Failed to login');
       }
+
+      const json = await response.json(); // If response is OK, parse it as JSON
 
       // Save the user to local storage
       localStorage.setItem('user', JSON.stringify(json));
@@ -34,6 +37,7 @@ export const useLogin = () => {
       setIsLoading(false);
     }
   };
+
 
   return { login, isLoading, error };
 }
