@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "React Password Manager",
+  "version": "1.0",
+  "description": "A secure and efficient password manager",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  },
+  "permissions": [
+      "storage",
+      "activeTab",
+      "clipboardWrite",
+      "cookies",
+      "alarms",
+      "notifications"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  },
+  "host_permissions": [
+    "https://*/*",
+    "http://*/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [ "index.html", "static/js/*.js" ],
+      "matches": [ "<all_urls>" ]
+    }
+  ]
+}

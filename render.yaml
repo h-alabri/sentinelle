@@ -1,0 +1,24 @@
+services:
+  # Configuration for the Node/Express backend
+  - type: web
+    name: myapp-backend
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: npm start --prefix server
+    envVars:
+      - key: MONGO_URI
+        fromDatabase:
+          name: my-mongodb
+          property: connectionString
+
+  # Configuration for the React frontend
+  - type: web
+    name: myapp-frontend
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: client/build
+
+databases:
+  # MongoDB database instance
+  - name: my-mongodb
+    type: mongodb
