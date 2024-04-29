@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')  // Import CORS
 const credentialRoutes = require('./routes/credentials')
 const userRoutes = require('./routes/user')
 
@@ -9,6 +10,7 @@ const userRoutes = require('./routes/user')
 const app = express()
 
 // middleware
+app.use(cors())  // Use CORS with default options, you can also specify options
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -31,3 +33,9 @@ mongoose.connect(process.env.MONGO_URI)
   .catch((error) => {
     console.log(error)
   })
+
+  // Replace '' with your actual frontend URL
+app.use(cors({
+  origin: 'https://sentinelle-1.onrender.com',
+  credentials: true  // Allows credentials such as cookies, authorization headers, etc.
+}))
